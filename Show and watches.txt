@@ -1,0 +1,26 @@
+Create table show (
+	Show_name varchar(50),
+	Created_by varchar(50) not null,
+	Genre varchar(50) not null,
+	TV_name varchar(50) not null,
+	Studio_name varchar(50) not null,
+	Actor_name varchar(50) not null,
+	Num_seasons int not null check (Num_seasons > 0),
+	Lead_character_name varchar(50) not null,
+	Premiere_year char(4) varchar(50) not null,
+	Primary key (Show_name),
+	Foreign key TV_name references TV_NETWORK(TV_name),
+	Foreign key Studio_name references STUDIO(Studio_name),
+	Foreign key Actor_name references ACTOR(Actor_name),
+	Foreign key TV_name references TV_NETWORK(TV_name)
+);
+
+Create table watches (
+	Address varchar(50),
+	Viewer_name varchar(50),
+	Episode_num int check (Episode_num >= 0),
+	Season_num int check (Season_num > 0),
+	Show_name  varchar(50),
+	Primary key (Address, Viewer_name) references VIEWER(Address, Viewer_name),
+	Primary key (Episode_num, Season_num, Show_name) references EPISODE(Episode_num, Season_num, Show_name)
+);
