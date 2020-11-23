@@ -17,3 +17,9 @@ Viewer_name VARCHAR(100) NOT NULL,
 Age INT NOT NULL CHECK (Age > 0),
 Gender CHAR NOT NULL CHECK (Gender IN ('M', 'F')),
 PRIMARY KEY(Address, Viewer_name));
+
+INSERT into STUDIO values ('High Bridge Entertainment', 'Albuquerque, New Mexico'), ('Idiot Box Productions', 'Georgia, United States'), ('Deedle-Dee Productions', 'Los Angeles, California');
+
+INSERT into ACTOR values ('Bryan Cranston', '1956-03-07', 64), ('Andrew Lincoln', '1973-09-14', 47), ('Steve Carell', '1962-08-16', 58);
+
+INSERT into VIEWER values ('4595 Haven Lane Lansing, MI 48933', 'Veronica Blank', 53, 'F'), ('943 Glen Falls Road Philadelphia, PA 19145', 'Pearl Pauline', 45, 'F'), ('2153 Jim Rosa Lane San Francisco, CA 94108', 'Marvin Ferguson', 27, 'M');
