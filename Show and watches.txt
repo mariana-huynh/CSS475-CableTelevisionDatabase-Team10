@@ -20,7 +20,8 @@ Create table watches (
 	Viewer_name varchar(50),
 	Episode_num int check (Episode_num >= 0),
 	Season_num int check (Season_num > 0),
-	Show_name  varchar(50),
-	Primary key (Address, Viewer_name) references VIEWER(Address, Viewer_name),
-	Primary key (Episode_num, Season_num, Show_name) references EPISODE(Episode_num, Season_num, Show_name)
+	Show_name varchar(50),
+	Primary key (Address, Viewer_name, Episode_num, Season_num, Show_name),
+	Foreign key (Address, Viewer_name) references VIEWER(Address, Viewer_name),
+	Foreign key (Episode_num, Season_num, Show_name) references EPISODE(Episode_num, Season_num, Show_name)
 );
