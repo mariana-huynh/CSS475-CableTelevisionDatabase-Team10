@@ -11,8 +11,7 @@ Create table show (
 	Primary key (Show_name),
 	Foreign key TV_name references TV_NETWORK(TV_name),
 	Foreign key Studio_name references STUDIO(Studio_name),
-	Foreign key Actor_name references ACTOR(Actor_name),
-	Foreign key TV_name references TV_NETWORK(TV_name)
+	Foreign key Actor_name references ACTOR(Actor_name)
 );
 
 Create table watches (
