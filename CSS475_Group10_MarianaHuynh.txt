@@ -41,4 +41,4 @@ where M.Tier = Tier and C.Cab_name = Cab_name and T.TV_name = TV_name;
 //Example test: (trying to find the price)
 select price
 from MEMBERSHIP M, CABLE_PROVIDER C, TV_NETWORK T
-where M.Tier = "Gold" and C.Cab_name = "DirectTV" and T.TV_name = "Cartoon Network";
+where M.Tier = "Gold" and C.Cab_name = "DirectTV";
