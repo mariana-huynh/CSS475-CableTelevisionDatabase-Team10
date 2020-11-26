@@ -1,5 +1,5 @@
 
-PRAGMA foreign_keys = ON;
+PRAGMA foreign_keys = ON; //allows to check for FK
 
 create table CABLE_PROVIDER
 (
@@ -25,7 +25,16 @@ foreign key(Cab_name) references CABLE_PROVIDER(Cab_name)
 );
 
 INSERT
-insert into CABLE_PROVIDER values ("ABC Cable Provider", "Bellevue, WA");
-insert into TV_NETWORK VALUES ("Xfinity", "Los Angeles, CA");
-Insert into MEMBERSHIP values ("ABC Cable Provider", "Silver", 50);
+insert into CABLE_PROVIDER values ("DirectTV", "Dallas, TX");
+insert into CABLE_PROVIDER values ("Xfinity", "Los Angeles, CA");
+insert into CABLE_PROVIDER values ("Dish", "Bellevue, WA");
+
+insert into TV_NETWORK VALUES ("Cartoon Network", "Los Angeles, CA");
+insert into TV_NETWORK VALUES ("HBO", "Tampa, FL");
+insert into TV_NETWORK VALUES ("Nickelodeon", "Eugene, OR");
+
+Insert into MEMBERSHIP values ("DirectTV", "Platniumr", 100);
+Insert into MEMBERSHIP values ("DirectTV", "Gold", 75);
+Insert into MEMBERSHIP values ("DirectTV", "Silver", 50);
+
 
