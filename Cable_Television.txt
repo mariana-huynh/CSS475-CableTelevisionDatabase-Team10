@@ -15,7 +15,7 @@ CREATE TABLE VIEWER
 (Address VARCHAR(100) NOT NULL,
 Viewer_name VARCHAR(100) NOT NULL,
 Age INT NOT NULL CHECK (Age > 0),
-Gender CHAR NOT NULL CHECK (Gender IN ('M', 'F')),
+Gender CHAR NOT NULL CHECK (Gender IN ('M', 'F')) Pragma nocase,
 PRIMARY KEY(Address, Viewer_name));
 
 INSERT into STUDIO values ('High Bridge Entertainment', 'Albuquerque, New Mexico'), ('Idiot Box Productions', 'Georgia, United States'), ('Deedle-Dee Productions', 'Los Angeles, California');
