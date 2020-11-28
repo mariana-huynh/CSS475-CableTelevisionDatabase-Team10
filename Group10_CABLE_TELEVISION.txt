@@ -73,15 +73,15 @@ PRIMARY KEY(Address, Viewer_name)
 
 Create table SHOW
 (
-Show_name varchar(50),
-Created_by varchar(50) not null,
-Genre varchar(50) not null,
-TV_name varchar(50) not null,
-Studio_name varchar(50) not null,
-Actor_name varchar(50) not null,
+Show_name varchar(100),
+Created_by varchar(100) not null,
+Genre varchar(100) not null,
+TV_name varchar(100) not null,
+Studio_name varchar(100) not null,
+Actor_name varchar(100) not null,
 Num_seasons int not null check (Num_seasons > 0),
-Lead_character_name varchar(50) not null,
-Premiere_year char(4) varchar(50) not null,
+Lead_character_name varchar(100) not null,
+Premiere_year char(4) varchar(100) not null,
 Primary key (Show_name),
 Foreign key TV_name references TV_NETWORK(TV_name),
 Foreign key Studio_name references STUDIO(Studio_name),
