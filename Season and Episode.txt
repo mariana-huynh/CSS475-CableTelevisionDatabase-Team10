@@ -3,7 +3,7 @@
 Season_num INT NOT NULL CHECK (Season_num > 0),
 Show_name VARCHAR (100) NOT NULL,
 Num_episodes INT NOT NULL,
-primary key (Season_num),
+primary key (Season_num, Show_name),
 foreign key (Show_name) references SHOW(Show_name) on update cascade on delete set null
 );
 
@@ -22,7 +22,7 @@ Premiere_date DATE,
 Viewership VARCHAR (100) NOT NULL,
 Season_num INT NOT NULL CHECK (SEASON_num > 0),
 Show_name VARCHAR (100) NOT NULL,
-primary key(Episode_num),
+primary key(Episode_num, Show_name, Season_num),
 Foreign key(Show_name, Season_num) references SEASON(Show_name,Season_num) on update cascade on delete set null
 );
 
