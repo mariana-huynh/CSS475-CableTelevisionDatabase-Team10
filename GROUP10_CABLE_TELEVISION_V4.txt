@@ -41,7 +41,7 @@ Cab_name varchar(100) not null,
 TV_name varchar(100) not null,
 Channel char(3) not null,
 primary key(Cab_name, TV_name),
-unique(Channel),
+unique(Cab_name, Channel),
 foreign key(Cab_name) references CABLE_PROVIDER(Cab_name) on delete cascade,
 foreign key(TV_name) references TV_NETWORK(TV_name) on delete cascade
 );
