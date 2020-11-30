@@ -1,0 +1,179 @@
+.open CABLE_TELEVISION.db
+
+
+// create statements
+create table CABLE_PROVIDER
+(
+Cab_name varchar(100) not null check(length(Cab_name) <= 100),
+HeadQuarter_loc varchar(100) not null check(length(HeadQuarter_loc) <= 100),
+primary key (Cab_name)
+);
+
+create table MEMBERSHIP
+(
+Cab_name varchar(100) not null check(length(Cab_name) <= 100),
+Tier varchar(100) not null check(length(Tier) <= 100),
+price int(5) not null,
+primary key(Tier, Cab_name),
+foreign key(Cab_name) references CABLE_PROVIDER(Cab_name)
+);
+
+create table TV_NETWORK
+(
+TV_name varchar(100) not null check( length(TV_name) <= 100),
+TV_address varchar(100) not null check( length(TV_address) <= 100),
+primary key (TV_name)
+);
+
+create table OFFERS
+(
+Tier varchar(100) not null,
+Cab_name varchar(100) not null,
+TV_name varchar(100),
+primary key(Tier, Cab_name),
+foreign key(Tier, Cab_name) references MEMBERSHIP(Tier, Cab_name) on delete cascade,
+foreign key(TV_name) references TV_NETWORK(TV_name) on delete cascade
+);
+
+create table ALLOWS_FOR
+(
+Cab_name varchar(100) not null,
+TV_name varchar(100) not null,
+Channel char(3) not null,
+primary key(Cab_name, TV_name),
+unique(Channel),
+foreign key(Cab_name) references CABLE_PROVIDER(Cab_name) on delete cascade,
+foreign key(TV_name) references TV_NETWORK(TV_name) on delete cascade
+);
+
+CREATE TABLE STUDIO
+(
+Studio_name VARCHAR(100) NOT NULL,
+Location VARCHAR(100),
+PRIMARY KEY(Studio_name)
+);
+
+CREATE TABLE ACTOR
+(
+Actor_name VARCHAR(100) NOT NULL,
+DOB date NOT NULL,
+Age INT NOT NULL CHECK (Age > 0),
+PRIMARY KEY(Actor_name)
+);
+
+CREATE TABLE VIEWER
+(
+Address VARCHAR(100) NOT NULL,
+Viewer_name VARCHAR(100) NOT NULL,
+Age INT NOT NULL CHECK (Age > 0),
+Gender CHAR NOT NULL CHECK (Gender IN ('M', 'F')) collate nocase,
+PRIMARY KEY(Address, Viewer_name)
+);
+
+Create table SHOW
+(
+Show_name varchar(100) not null,
+Created_by varchar(100) not null,
+Genre varchar(100) not null,
+TV_name varchar(100) not null check( length(TV_name) <= 100),
+Studio_name varchar(100) not null,
+Actor_name varchar(100) not null,
+Num_seasons int not null check (Num_seasons > 0),
+Lead_character_name varchar(100) not null,
+Premiere_year char(4) not null,
+Primary key (Show_name),
+Foreign key(TV_name) references TV_NETWORK(TV_name),
+Foreign key(Studio_name) references STUDIO(Studio_name),
+Foreign key(Actor_name) references ACTOR(Actor_name)
+);
+
+CREATE TABLE SEASON
+(
+Season_num INT NOT NULL CHECK(Season_num > 0),
+Show_name VARCHAR(100) NOT NULL,
+Num_episodes INT NOT NULL,
+primary key(Season_num, Show_name),
+foreign key(Show_name) references SHOW(Show_name) on update cascade on delete set null
+);
+
+CREATE TABLE EPISODE
+(
+Episode_num INT NOT NULL CHECK(Episode_num > 0),
+Premiere_date DATE,
+Viewership int NOT NULL CHECK(Viewership > 0),
+Season_num INT NOT NULL CHECK (SEASON_num > 0),
+Show_name VARCHAR (100) NOT NULL,
+primary key(Episode_num, Show_name, Season_num),
+Foreign key(Show_name, Season_num) references SEASON(Show_name, Season_num) on update cascade on delete set null
+);
+
+Create table WATCHES
+(
+Address varchar(100) not null,
+Viewer_name varchar(100) not null,
+Episode_num int check (Episode_num >= 0) not null,
+Season_num int check (Season_num > 0) not null,
+Show_name varchar(100) not null,
+Primary key (Address, Viewer_name, Episode_num, Season_num, Show_name),
+Foreign key (Address, Viewer_name) references VIEWER(Address, Viewer_name),
+Foreign key (Episode_num, Season_num, Show_name) references EPISODE(Episode_num, Season_num, Show_name)
+);
+
+
+PRAGMA foreign_keys = ON; //allows to check for FK
+
+
+// insert statements
+insert into CABLE_PROVIDER values ("DirectTV", "Dallas, TX");
+insert into CABLE_PROVIDER values ("Xfinity", "Los Angeles, CA");
+insert into CABLE_PROVIDER values ("Dish", "Bellevue, WA");
+
+Insert into MEMBERSHIP values ("DirectTV", "Platinum", 100);
+Insert into MEMBERSHIP values ("DirectTV", "Gold", 75);
+Insert into MEMBERSHIP values ("DirectTV", "Silver", 50);
+
+insert into TV_NETWORK VALUES ("Cartoon Network", "Los Angeles, CA");
+insert into TV_NETWORK VALUES ("HBO", "Tampa, FL");
+insert into TV_NETWORK VALUES ("Nickelodeon", "Eugene, OR");
+
+insert into OFFERS values ('Platinum', 'DirectTV', 'Cartoon Network');
+insert into OFFERS values ('Gold', 'DirectTV', 'HBO');
+insert into OFFERS values ('Silver', 'DirectTV', 'Nickelodeon');
+
+insert into ALLOWS_FOR values ('Xfinity', 'Nickelodeon', 001);
+insert into ALLOWS_FOR values ('Dish', 'HBO', 002);
+insert into ALLOWS_FOR values ('DirectTV', 'Cartoon Network', 003);
+
+INSERT into STUDIO values ('High Bridge Entertainment', 'Albuquerque, New Mexico');
+INSERT into STUDIO values ('Idiot Box Productions', 'Georgia, United States');
+INSERT into STUDIO values ('Deedle-Dee Productions', 'Los Angeles, California');
+
+INSERT into ACTOR values ('Bryan Cranston', '1956-03-07', 64);
+INSERT into ACTOR values ('Andrew Lincoln', '1973-09-14', 47);
+INSERT into ACTOR values ('Steve Carell', '1962-08-16', 58);
+
+INSERT into VIEWER values ('4595 Haven Lane Lansing, MI 48933', 'Veronica Blank', 53, 'F');
+INSERT into VIEWER values ('943 Glen Falls Road Philadelphia, PA 19145', 'Pearl Pauline', 45, 'F');
+INSERT into VIEWER values ('2153 Jim Rosa Lane San Francisco, CA 94108', 'Marvin Ferguson', 27, 'M');
+
+Insert into SHOW values ('The Office', 'Greg Daniels', 'Sitcom', 'HBO', 'Deedle-Dee Productions', 'Steve Carell', 1, 'Michael Scott', '2005');
+Insert into SHOW values ('American Horror Story', 'Ryan Murphy', 'Horror', 'HBO', 'High Bridge Entertainment', 'Bryan Cranston', 9, 'Tate Langdon', '2011');
+
+insert into SEASON values (3, 'The Office', 12);
+insert into SEASON values (1, 'American Horror Story', 5);
+insert into SEASON values (10, 'The Office', 7);
+insert into SEASON values (2, 'American Horror Story', 1);
+
+insert into Episode values (8, 2007-05-28, 28000, 3, 'The Office');
+insert into Episode values (1, 2015-01-5, 56000, 2, 'American Horror Story');
+insert into Episode values (2, 2017-05-21, 34000, 1, 'American Horror Story');
+// just having year works. why?
+insert into Episode values (5, 2005, 23000, 3, 'The Office');
+
+
+insert into WATCHES values ('4595 Haven Lane Lansing, MI 48933', 'Veronica Blank', 1, 2, 'American Horror Story');
+insert into WATCHES values('4595 Haven Lane Lansing, MI 48933', 'Veronica Blank', 2, 1, 'American Horror Story');
+insert into WATCHES values ('943 Glen Falls Road Philadelphia, PA 19145', 'Pearl Pauline', 8, 3, 'The Office');
+Insert into WATCHES values ('2153 Jim Rosa Lane San Francisco, CA 94108', 'Marvin Ferguson', 5, 3, 'The Office');
+
+
