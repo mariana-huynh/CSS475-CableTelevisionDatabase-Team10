@@ -164,12 +164,10 @@ insert into SEASON values (1, 'American Horror Story', 5);
 insert into SEASON values (10, 'The Office', 7);
 insert into SEASON values (2, 'American Horror Story', 1);
 
-insert into Episode values (8, 2007-05-28, 28000, 3, 'The Office');
-insert into Episode values (1, 2015-01-5, 56000, 2, 'American Horror Story');
-insert into Episode values (2, 2017-05-21, 34000, 1, 'American Horror Story');
-// just having year works. why?
-insert into Episode values (5, 2005, 23000, 3, 'The Office');
-
+insert into Episode values (8, '2007-05-28', 28000, 3, 'The Office');
+insert into Episode values (1, '2015-01-05', 56000, 2, 'American Horror Story');
+insert into Episode values (2, '2017-05-21', 34000, 1, 'American Horror Story');
+insert into Episode values (5, '2005-03-24', 23000, 3, 'The Office');
 
 insert into WATCHES values ('4595 Haven Lane Lansing, MI 48933', 'Veronica Blank', 1, 2, 'American Horror Story');
 insert into WATCHES values('4595 Haven Lane Lansing, MI 48933', 'Veronica Blank', 2, 1, 'American Horror Story');
