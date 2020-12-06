@@ -30,7 +30,7 @@ create table OFFERS
 Tier varchar(100) not null,
 Cab_name varchar(100) not null,
 TV_name varchar(100),
-primary key(Tier, Cab_name),
+primary key(Tier, Cab_name, TV_name),
 foreign key(Tier, Cab_name) references MEMBERSHIP(Tier, Cab_name) on delete cascade,
 foreign key(TV_name) references TV_NETWORK(TV_name) on delete cascade
 );
